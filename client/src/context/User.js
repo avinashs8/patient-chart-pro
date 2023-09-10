@@ -12,4 +12,4 @@ function UserProvider({ children }) {
   )
 }
 
-export default { UserContext, UserProvider}
+export default { UserContext, UserProvider }
