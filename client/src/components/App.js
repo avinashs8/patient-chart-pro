@@ -1,10 +1,15 @@
-
 import '../App.css';
+import { Routes, Route } from 'react-router-dom';
+import Signup from './Signup';
 
 function App() {
+
+
   return (
     <div>
-      hello
+      <Routes>
+        <Route path='/signup' element={<Signup />} />
+      </Routes>
     </div>
   );
 }
