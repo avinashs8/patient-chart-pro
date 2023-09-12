@@ -1,6 +1,36 @@
-import React from 'react';
+import React, { useState, useContext } from 'react';
 
 function Signup() {
+    const [formData, setFormData] = useState({
+        name: '',
+        email: '',
+        password: '',
+        password_confirmation: '',
+        specialization: '',
+        address: '',
+        phone_number: ''
+    })
+    const [errorList, setErrorList] = useState({})
+
+    const handleChange = e => {
+        const { name, value } = e.target
+        setFormData({
+            ...formData,
+            [name]: value
+        })
+    }
+
+    const handleSubmit = e => {
+        e.preventDefault()
+        fetch('/signup', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({formData})
+        })
+        .then(resp => resp.json())
+        .then(data => console.log(data))
+    }
+
   return (
     <div>
       <form className="row g-3">
@@ -11,8 +41,10 @@ function Signup() {
           <input
             type="text"
             className="form-control"
-            id="inputName"
+            name="name"
             placeholder="First and Last Name"
+            value={formData.name}
+            onChange={handleChange}
           />
         </div>
         <div className="col-md-6">
@@ -22,17 +54,9 @@ function Signup() {
           <input
             type="text"
             className="form-control"
-            id="inputEmailAddress"
-          />
-        </div>
-        <div className="col-11">
-          <label htmlFor="inputUserName" className="form-label">
-            Username
-          </label>
-          <input
-            type="text"
-            className="form-control"
-            id="inputUserName"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
           />
         </div>
         <div className="col-md-6">
@@ -42,7 +66,9 @@ function Signup() {
           <input
             type="password"
             className="form-control"
-            id="inputPassword"
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
           />
         </div>
         <div className="col-md-6">
@@ -52,7 +78,9 @@ function Signup() {
           <input
             type="password"
             className="form-control"
-            id="inputPasswordConfirmation"
+            name="password_confirmation"
+            value={formData.password_confirmation}
+            onChange={handleChange}
           />
         </div>
         <div className="col-md-6">
@@ -62,7 +90,9 @@ function Signup() {
           <input
             type="text"
             className="form-control"
-            id="inputSpecialization"
+            name="specialization"
+            value={formData.specialization}
+            onChange={handleChange}
           />
         </div>
         <div className="col-12">
@@ -72,8 +102,10 @@ function Signup() {
           <input
             type="text"
             className="form-control"
-            id="inputAddress"
+            name="address"
             placeholder="1234 Main St"
+            value={formData.address}
+            onChange={handleChange}
           />
         </div>
         <div className="col-12">
@@ -83,7 +115,9 @@ function Signup() {
           <input
             type="text"
             className="form-control"
-            id="inputPhoneNumber"
+            name="phone_number"
+            value={formData.phone_number}
+            onChange={handleChange}
           />
         </div>
         <div className="col-12 d-flex justify-content-center">
