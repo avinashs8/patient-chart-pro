@@ -1,4 +1,6 @@
 import React, { useState, useContext } from 'react';
+import { UserContext } from '../context/User';
+import { useNavigate } from 'react-router-dom';
 
 function Signup() {
     const [formData, setFormData] = useState({
@@ -11,6 +13,8 @@ function Signup() {
         phone_number: ''
     })
     const [errorList, setErrorList] = useState({})
+    const { signup } = useContext(UserContext)
+    const navigate = useNavigate()
 
     const handleChange = e => {
         const { name, value } = e.target
@@ -29,7 +33,12 @@ function Signup() {
             body: JSON.stringify(formData)
         })
         .then(resp => resp.json())
-        .then(data => console.log(data))
+        .then(data => {
+          if (!data.errors) {
+            signup(data)
+            navigate('/')
+          }
+        })
     }
 
   return (
