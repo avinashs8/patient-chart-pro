@@ -22,10 +22,11 @@ function Signup() {
 
     const handleSubmit = e => {
         e.preventDefault()
+        console.log(formData)
         fetch('/signup', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({formData})
+            body: JSON.stringify(formData)
         })
         .then(resp => resp.json())
         .then(data => console.log(data))
@@ -33,7 +34,7 @@ function Signup() {
 
   return (
     <div>
-      <form className="row g-3">
+      <form className="row g-3" onSubmit={handleSubmit}>
         <div className="col-md-6">
           <label htmlFor="inputName" className="form-label">
             Name
