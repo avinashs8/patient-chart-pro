@@ -1,9 +1,17 @@
 import React, { useState } from 'react'
 import AddNewPatient from './AddNewPatient'
+import PatientCard from './PatientCard'
 
 function AllPatients({ patients, setPatients }) {
 
   const [toggleForm, setToggleForm] = useState(false)
+
+  const patientsList = patients.map(patient => {
+      return(
+        <PatientCard key={patient.id} patient={patient}/>
+      )
+  })
+
 
     if(patients.length < 1){
         return(
@@ -17,7 +25,7 @@ function AllPatients({ patients, setPatients }) {
     }
   return (
     <div>
-
+      {patientsList}
     </div>
   )
 }
