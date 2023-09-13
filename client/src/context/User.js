@@ -1,5 +1,5 @@
 import React from 'react'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 const UserContext = React.createContext()
 
@@ -11,7 +11,7 @@ function UserProvider({ children }) {
     useEffect(() => {
       fetch('/me')
       .then(resp => resp.json()) 
-      .then(data => setUser(data))
+      .then(data => {setUser(data)})
     }, [])
 
     const signup = (user) =>{

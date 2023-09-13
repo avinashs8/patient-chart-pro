@@ -44,7 +44,7 @@ function Login() {
     <div>
       <form className="row g-3" onSubmit={handleSubmit}>
         
-        <div className="col-md-6">
+        <div className="mb-3">
           <label htmlFor="inputEmailAddress" className="form-label">
             Email Address
           </label>
@@ -56,7 +56,7 @@ function Login() {
             onChange={handleEmailChange}
           />
         </div>
-        <div className="col-md-6">
+        <div className="mb-3">
           <label htmlFor="inputPassword" className="form-label">
             Password
           </label>
