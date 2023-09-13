@@ -11,7 +11,10 @@ function UserProvider({ children }) {
     useEffect(() => {
       fetch('/me')
       .then(resp => resp.json()) 
-      .then(data => {setUser(data)})
+      .then(data => {
+        setUser(data)
+        setloggedIn(true)
+      })
     }, [])
 
     const signup = (user) =>{
@@ -26,6 +29,7 @@ function UserProvider({ children }) {
 
     const logout = () => {
       setUser(null)
+      setloggedIn(false)
     }
 
   return (
