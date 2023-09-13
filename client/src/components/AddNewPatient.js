@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 
 
-function AddNewPatient() {
+function AddNewPatient({ patients, setPatients }) {
 
 
     const [formData, setFormData] = useState({
@@ -24,6 +24,18 @@ function AddNewPatient() {
 
     const handleSubmit = e => {
         e.preventDefault()
+        fetch('/addpatient', {
+            method: 'POST', 
+            headers: { 'Content-Type': 'application/json'},
+            body: JSON.stringify(formData)
+        })
+        .then(resp => resp.json())
+        .then(data => {
+            if(!data.errors){
+                const newPatients = [...patients, data]
+                setPatients(newPatients)
+            }
+        })
     }
   return (
     <div>
@@ -60,7 +72,7 @@ function AddNewPatient() {
           <input
             type="text"
             className="form-control"
-            name="Date of Birth"
+            name="date_of_birth"
             placeholder='yyyy-mm-dd'
             value={formData.date_of_birth}
             onChange={handleChange}

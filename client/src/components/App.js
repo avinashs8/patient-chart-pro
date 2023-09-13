@@ -26,7 +26,7 @@ function App() {
       <Navbar />
       <Routes>
         <Route path='/' element={<Home />}/>
-        <Route path='/allpatients' element={<AllPatients patients={patients}/>} />
+        <Route path='/allpatients' element={<AllPatients patients={patients} setPatients={setPatients}/>} />
         <Route path='/mypatients' element={<MyPatients />} />
         <Route path='/signup' element={<Signup />} />
         <Route path='/login' element={<Login />}/>
