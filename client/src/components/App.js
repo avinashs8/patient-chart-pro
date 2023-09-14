@@ -9,6 +9,7 @@ import Login from './Login';
 import AllPatients from './AllPatients';
 import MyPatients from './MyPatients';
 import PatientShowPage from './PatientShowPage';
+import PatientPrescriptions from './PatientPrescriptions';
 import { UserContext } from '../context/User';
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
         <Route path='/allpatients' element={<AllPatients patients={patients} setPatients={setPatients}/>} />
         <Route path='/mypatients' element={<MyPatients />} />
         <Route path='/allpatients/:id' element={<PatientShowPage patients={patients}/>}/>
+        <Route path='/patients/:id/prescriptions' element={<PatientPrescriptions patients={patients}/>}/>
         <Route path='/signup' element={<Signup />} />
         <Route path='/login' element={<Login />}/>
       </Routes>

@@ -1,10 +1,19 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { useParams } from 'react-router-dom'
+import { Link } from 'react-router-dom'
+import { UserContext } from '../context/User'
 
 function PatientShowPage({ patients }) {
 
     const { id } = useParams()
+    const { user } = useContext(UserContext)
     const patient = patients.find(p => p.id === parseInt(id) )
+
+    if(!user){
+        return(
+            <h1>Loading...</h1>
+        )
+    }
     
 
   return (
@@ -16,7 +25,7 @@ function PatientShowPage({ patients }) {
             <a class="nav-link active" aria-current="true" href="#">Patient Profile</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Medications</a>
+            <Link class="nav-link" to={`/patients/${patient.id}/prescriptions`}>Medications</Link>
           </li>
         </ul>
       </div>
@@ -32,7 +41,7 @@ function PatientShowPage({ patients }) {
             Phone Number: {patient.phone_number}
 
         </p>
-        <a href="#" class="btn btn-primary">Update Info</a>
+        <button class="btn btn-primary">Update Info</button>
       </div>
     </div>
     </div>
