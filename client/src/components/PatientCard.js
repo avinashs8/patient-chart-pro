@@ -1,4 +1,5 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 
 function PatientCard({ patient }) {
   return (
@@ -7,7 +8,9 @@ function PatientCard({ patient }) {
         <div className="card-body">
           <h5 className="card-title">{patient.name}</h5>
           <p className="card-text">Date of Birth: {patient.date_of_birth}</p>
-          <button className="btn btn-primary">Full Profile</button>
+          <NavLink to={`/allpatients/${patient.id}`}>
+            <button className="btn btn-primary">Full Profile</button>
+          </NavLink>
         </div>
       </div>
     </div>

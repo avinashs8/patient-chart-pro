@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import AddNewPatient from './AddNewPatient'
 import PatientCard from './PatientCard'
 
+
 function AllPatients({ patients, setPatients }) {
 
   const [toggleForm, setToggleForm] = useState(false)
@@ -25,6 +26,7 @@ function AllPatients({ patients, setPatients }) {
     }
   return (
     <div>
+      <h3>All Patients:</h3>
       {patientsList}
     </div>
   )
