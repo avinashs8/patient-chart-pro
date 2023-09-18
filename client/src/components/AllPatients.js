@@ -28,6 +28,8 @@ function AllPatients({ patients, setPatients }) {
     <div>
       <h3>All Patients:</h3>
       {patientsList}
+      <button onClick={() => setToggleForm(!toggleForm)}>Add Patient</button>
+      {toggleForm ? <AddNewPatient patients={patients} setPatients={setPatients}/> : null}
     </div>
   )
 }
