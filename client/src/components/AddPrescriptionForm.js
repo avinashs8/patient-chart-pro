@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { UserContext } from '../context/User'
 
-function AddPrescriptionForm() {
+function AddPrescriptionForm({ patients, setPatients }) {
 
     const { id } = useParams()
     const { user, pharmacies } = useContext(UserContext)
@@ -30,7 +30,29 @@ function AddPrescriptionForm() {
         )
     })
 
-    console.log(formData)
+    const handleSubmit = e => {
+        e.preventDefault()
+        fetch('/addprescription', {
+            method: 'POST', 
+            headers: { 'Content-Type': 'application/json'},
+            body: JSON.stringify(formData)
+        })
+        .then(resp => resp.json())
+        .then(data => {
+            if(!data.errors){
+                const updatedPatients = patients.map(patient => {
+                    if (patient.id === parseInt(id)){
+                        patient.prescriptions.push(data)
+                        return patient
+                    } else {
+                        return patient
+                    }
+                })
+                setPatients(updatedPatients)
+                console.log(updatedPatients)
+            }
+        })
+    }
 
   return (
     <div>
