@@ -5,7 +5,7 @@ import { UserContext } from '../context/User'
 function AddPrescriptionForm() {
 
     const { id } = useParams()
-    const { user } = useContext(UserContext)
+    const { user, pharmacies } = useContext(UserContext)
     const [ formData, setFormData ] = useState({
         medication: '',
         dose: '',
@@ -23,6 +23,15 @@ function AddPrescriptionForm() {
             [name]: value
         })
     }
+
+    const selectPharmacy = pharmacies.map(pharmacy => {
+        return(
+            <option value={pharmacy.id} key={pharmacy.id}>{pharmacy.name}</option>
+        )
+    })
+
+    console.log(formData)
+
   return (
     <div>
         <form className="row g-3 d-flex justify-content-center" onSubmit={null}>
@@ -61,9 +70,9 @@ function AddPrescriptionForm() {
           <input
             type="text"
             className="form-control"
-            name="intructions"
+            name="instructions"
             placeholder="instructions"
-            value={formData.intructions}
+            value={formData.instructions}
             onChange={handleChange}
           />
         </div>
@@ -79,6 +88,13 @@ function AddPrescriptionForm() {
             onChange={handleChange}
           />
         </div>
+
+        <select class="form-select" aria-label="Default select example" onChange={handleChange} value={formData.pharmacy_id} name='pharmacy_id'>
+            <option selected="">Select a Pharmacy</option>
+            {selectPharmacy}
+            
+        </select>
+
         <div className="col-12 d-flex justify-content-center">
           <button type="submit" className="btn btn-primary">
             Add Prescription
