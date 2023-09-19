@@ -18,7 +18,13 @@ function UserProvider({ children }) {
       })
     }, [])
 
-    useEffect(() =>)
+    useEffect(() => {
+      fetch('/pharmacies')
+      .then(resp => resp.json())
+      .then(data => {
+        setPharmacies(data)
+      })
+    }, [])
 
     const signup = (user) =>{
       setUser(user)
