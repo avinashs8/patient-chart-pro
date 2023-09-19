@@ -7,6 +7,7 @@ function UserProvider({ children }) {
 
     const [ user, setUser ] = useState(null)
     const [ loggedIn, setloggedIn ] = useState(false)
+    const [ pharmacies, setPharmacies] = useState([])
 
     useEffect(() => {
       fetch('/me')
@@ -16,6 +17,8 @@ function UserProvider({ children }) {
         setloggedIn(true)
       })
     }, [])
+
+    useEffect(() =>)
 
     const signup = (user) =>{
       setUser(user)
