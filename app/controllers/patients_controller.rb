@@ -13,6 +13,15 @@ class PatientsController < ApplicationController
         end
     end
 
+    def update
+        patient = Patient.find_by(id: params[:id])
+        if patient.update(patient_params)
+            render json: patient, status: :ok 
+        else
+            render json: { errors: patient.errors.full_messages }, status: :unprocessable_entity
+        end
+    end
+
     private
 
     def patient_params

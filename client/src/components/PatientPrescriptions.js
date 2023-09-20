@@ -14,9 +14,12 @@ function PatientPrescriptions({ patients, setPatients }) {
     return <h1>Loading...</h1>;
   }
 
+  
   const prescriptions = patient.prescriptions
     ? patient.prescriptions.map((prescription) => {
-        return <PrescriptionShowPage key={prescription.id} prescription={prescription} />
+        return (
+            <PrescriptionShowPage key={prescription.id} prescription={prescription} />
+        )
       })
     : <h1>No Active Prescriptions</h1>
 
@@ -25,7 +28,7 @@ function PatientPrescriptions({ patients, setPatients }) {
       <h1>{patient.name}'s Prescriptions:</h1>
       {prescriptions}
       <button onClick={() => setToggleForm(!toggleForm)}>Add New Prescription</button>
-      {toggleForm ? <AddPrescriptionForm patients={patients} setPatients={setPatients}/> : null}
+      {toggleForm ? <AddPrescriptionForm patients={patients} setPatients={setPatients} toggleForm={toggleForm} setToggleForm={setToggleForm}/> : null}
     </div>
   );
 }

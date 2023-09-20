@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   post '/addpatient', to: "patients#create"
   get '/pharmacies', to: "pharmacies#index"
   post '/addprescription', to: "prescriptions#create"
+  patch '/patients/:id', to: "patients#update"
   
 
   # Routing logic: fallback requests for React Router.

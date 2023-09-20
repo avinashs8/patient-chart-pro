@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { UserContext } from '../context/User'
 
-function AddPrescriptionForm({ patients, setPatients }) {
+function AddPrescriptionForm({ patients, setPatients, toggleForm, setToggleForm }) {
 
     const { id } = useParams()
     const { user, pharmacies } = useContext(UserContext)
@@ -42,6 +42,9 @@ function AddPrescriptionForm({ patients, setPatients }) {
             if(!data.errors){
                 const updatedPatients = patients.map(patient => {
                     if (patient.id === parseInt(id)){
+                        if (!patient.prescriptions) {
+                            patient.prescriptions = [];
+                          }
                         patient.prescriptions.push(data)
                         return patient
                     } else {
@@ -49,14 +52,14 @@ function AddPrescriptionForm({ patients, setPatients }) {
                     }
                 })
                 setPatients(updatedPatients)
-                console.log(updatedPatients)
+                setToggleForm(!toggleForm)
             }
         })
     }
 
   return (
     <div>
-        <form className="row g-3 d-flex justify-content-center" onSubmit={null}>
+        <form className="row g-3 d-flex justify-content-center" onSubmit={handleSubmit}>
         <div className="col-md-6">
           <label htmlFor="inputMedication" className="form-label">
             Medication Name

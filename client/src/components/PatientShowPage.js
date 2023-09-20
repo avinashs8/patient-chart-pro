@@ -1,12 +1,14 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import { UserContext } from '../context/User'
+import EditPatientInfo from './EditPatientInfo'
 
-function PatientShowPage({ patients }) {
+function PatientShowPage({ patients, setPatients }) {
 
     const { id } = useParams()
     const { user } = useContext(UserContext)
+    const [toggleForm, setToggleForm] = useState(false)
     const patient = patients.find(p => p.id === parseInt(id) )
 
     if(!user){
@@ -41,9 +43,11 @@ function PatientShowPage({ patients }) {
             Phone Number: {patient.phone_number}
 
         </p>
-        <button class="btn btn-primary">Update Info</button>
+        <button class="btn btn-primary" onClick={() => setToggleForm(!toggleForm)}>Update Info</button>
+        {toggleForm ? <EditPatientInfo patients={patients} patient={patient} setPatients={setPatients} toggleForm={toggleForm} setToggleForm={setToggleForm}/> : null}
       </div>
     </div>
+    
     </div>
   )
 }
