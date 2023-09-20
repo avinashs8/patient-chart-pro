@@ -11,11 +11,14 @@ function PatientShowPage({ patients, setPatients }) {
     const [toggleForm, setToggleForm] = useState(false)
     const patient = patients.find(p => p.id === parseInt(id) )
 
-    if(!user){
+
+    if(!user || !patients || !patient){
         return(
             <h1>Loading...</h1>
         )
     }
+
+    
     
 
   return (
