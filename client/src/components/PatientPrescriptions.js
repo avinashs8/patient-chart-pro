@@ -1,5 +1,5 @@
 import React from 'react';
-import PrescriptionShowPage from './PrescriptionShowPage';
+import PrescriptionList from './PrescriptionList';
 import AddPrescriptionForm from './AddPrescriptionForm';
 import { useParams } from 'react-router-dom';
 import { useState } from 'react';
@@ -18,7 +18,7 @@ function PatientPrescriptions({ patients, setPatients }) {
   const prescriptions = patient.prescriptions
     ? patient.prescriptions.map((prescription) => {
         return (
-            <PrescriptionShowPage key={prescription.id} prescription={prescription} />
+            <PrescriptionList key={prescription.id} prescription={prescription} />
         )
       })
     : <h1>No Active Prescriptions</h1>
