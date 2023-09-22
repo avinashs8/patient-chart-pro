@@ -1,6 +1,13 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 
 function PrescriptionList({ prescription }) {
+
+  const { id } = useParams()
+
+  
+
   return (
     <div>
     <ol class="list-group">
@@ -9,7 +16,9 @@ function PrescriptionList({ prescription }) {
           <div class="fw-bold">{prescription.medication} {prescription.dose}</div>
           {prescription.instructions}
         </div>
-        <button class="badge bg-primary rounded-pill">View More</button>
+        <Link to={`/patients/${id}/prescriptions/${prescription.id}`}>
+          <button class="badge bg-primary rounded-pill">View More</button>
+        </Link>
       </li>
       </ol>
     </div>
