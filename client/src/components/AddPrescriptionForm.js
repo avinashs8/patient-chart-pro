@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, Link } from 'react-router-dom'
 import { UserContext } from '../context/User'
 
 function AddPrescriptionForm({ patients, setPatients, toggleForm, setToggleForm }) {
@@ -29,6 +29,8 @@ function AddPrescriptionForm({ patients, setPatients, toggleForm, setToggleForm 
             <option value={pharmacy.id} key={pharmacy.id}>{pharmacy.name}</option>
         )
     })
+
+    
 
     const handleSubmit = e => {
         e.preventDefault()
@@ -117,8 +119,10 @@ function AddPrescriptionForm({ patients, setPatients, toggleForm, setToggleForm 
         <select class="form-select" aria-label="Default select example" onChange={handleChange} value={formData.pharmacy_id} name='pharmacy_id'>
             <option selected="">Select a Pharmacy</option>
             {selectPharmacy}
-            
         </select>
+        <Link to='/addpharmacy'>
+          <button>Add Pharmacy</button>
+        </Link>
 
         <div className="col-12 d-flex justify-content-center">
           <button type="submit" className="btn btn-primary">

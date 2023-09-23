@@ -11,6 +11,7 @@ import MyPatients from './MyPatients';
 import PatientShowPage from './PatientShowPage';
 import PatientPrescriptions from './PatientPrescriptions';
 import PrescriptionShowPage from './PrescriptionShowPage';
+import AddPharmacy from './AddPharmacy';
 import { UserContext } from '../context/User';
 
 function App() {
@@ -34,6 +35,7 @@ function App() {
         <Route path='/allpatients/:id' element={<PatientShowPage patients={patients} setPatients={setPatients}/>}/>
         <Route path='/patients/:id/prescriptions' element={<PatientPrescriptions patients={patients} setPatients={setPatients}/>}/>
         <Route path='/patients/:patientId/prescriptions/:id' element={<PrescriptionShowPage patients={patients} setPatients={setPatients}/>}/>
+        <Route path='/addpharmacy' element={<AddPharmacy />}/>
         <Route path='/signup' element={<Signup />} />
         <Route path='/login' element={<Login />}/>
       </Routes>
