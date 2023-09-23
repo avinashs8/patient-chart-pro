@@ -25,17 +25,29 @@ function PrescriptionShowPage({ patients, setPatients }) {
     
 
   return (
-    <div>
-        <div className="card text-center mb-3" style={{ width: '24rem' }}>
-            <div className="card-body">
-                <h5 className="card-title">{prescription.medication} {prescription.dose}</h5>
-                <p className="card-text">{prescription.instructions}</p>
-                <h7>Doctor: {user.name}</h7>
-                <h8>Pharmacy: {pharmacy.name}</h8>
-                <a href="#" className="btn btn-primary">Go somewhere</a>
+    <div className="d-flex justify-content-center align-items-center vh-100">
+      <div className="card border-0 rounded-lg shadow-lg" style={{ width: '40rem' }}>
+        <div className="card-body">
+          <h2 className="card-title mb-4">{prescription.medication} {prescription.dose}</h2>
+          <p className="card-text">{prescription.instructions}</p>
+          <p className="mb-1"><strong>Quantity:</strong> {prescription.quantity}</p>
+          <hr />
+          <div className="d-flex justify-content-between align-items-center mt-4">
+            <div>
+              <small className="text-muted"><strong>Doctor:</strong> {user.name}</small>
             </div>
+            <div>
+              <small className="text-muted"><strong>Pharmacy:</strong> {pharmacy.name}</small>
+            </div>
+          </div>
+          <div className="mt-4">
+            <a href="#" className="btn btn-primary btn-block">Learn More</a>
+          </div>
         </div>
+      </div>
     </div>
+
+
   )
 }
 
