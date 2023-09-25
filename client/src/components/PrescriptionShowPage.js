@@ -25,7 +25,20 @@ function PrescriptionShowPage({ patients, setPatients }) {
     }
     
     const deletePrescription = () =>{
-      
+      fetch(`/patients/${patientId}/prescriptions/${id}`, {
+        method: 'DELETE'
+      })
+      .then(() => {
+        const prescriptionsAfterDelete = patients.map(patient =>{
+          if( patient.id === parseInt(patientId)){
+            const updatedPatientPrescriptions = patient.prescriptions.filter(prescription => prescription.id !== id)
+            return {...patient, prescriptions: updatedPatientPrescriptions}
+          } else{
+            return patient
+          }
+        })
+        setPatients(prescriptionsAfterDelete)
+      })
     }
 
   return (
