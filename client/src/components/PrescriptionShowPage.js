@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import { UserContext } from '../context/User'
 import EditPrescriptionForm from './EditPrescriptionForm'
 
@@ -8,6 +8,7 @@ function PrescriptionShowPage({ patients, setPatients }) {
     const { patientId, id } = useParams()
     const { user, pharmacies } = useContext(UserContext)
     const [ toggleForm, setToggleForm ] = useState(false)
+    const navigate = useNavigate()
 
     const patient = patients.find(p => p.id === parseInt(patientId))
 
@@ -18,6 +19,11 @@ function PrescriptionShowPage({ patients, setPatients }) {
 
     const prescription = patient.prescriptions.find(p => p.id === parseInt(id))
     
+
+    if (patient.prescriptions.length < 1){
+      return <h1>This Patient Has No Prescriptions</h1>
+    }
+    
     const pharmacy = pharmacies.find(p => p.id === prescription.pharmacy_id)
 
     if (!pharmacy){
@@ -25,19 +31,20 @@ function PrescriptionShowPage({ patients, setPatients }) {
     }
     
     const deletePrescription = () =>{
-      fetch(`/patients/${patientId}/prescriptions/${id}`, {
+      fetch(`/prescriptions/${id}`, {
         method: 'DELETE'
       })
       .then(() => {
         const prescriptionsAfterDelete = patients.map(patient =>{
           if( patient.id === parseInt(patientId)){
-            const updatedPatientPrescriptions = patient.prescriptions.filter(prescription => prescription.id !== id)
+            const updatedPatientPrescriptions = patient.prescriptions.filter(prescription => prescription.id !== parseInt(id))
             return {...patient, prescriptions: updatedPatientPrescriptions}
           } else{
             return patient
           }
         })
         setPatients(prescriptionsAfterDelete)
+        navigate(`/patients/${patientId}/prescriptions`)
       })
     }
 
@@ -62,7 +69,7 @@ function PrescriptionShowPage({ patients, setPatients }) {
             <button className="btn btn-primary btn-block" onClick={() => setToggleForm(!toggleForm)}>Edit Prescription</button>
           </div>
           <div className="mt-4">
-            <button className="btn btn-primary btn-block" onClick={() => deletePrescription}>Delete Prescription</button>
+            <button className="btn btn-primary btn-block" onClick={deletePrescription}>Delete Prescription</button>
           </div>
         </div>
       </div>

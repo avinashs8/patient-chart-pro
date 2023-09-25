@@ -18,6 +18,15 @@ class PrescriptionsController < ApplicationController
         end
     end
 
+    def destroy
+        prescription = Prescription.find_by(id: params[:id])
+        if prescription.destroy 
+            head :no_content
+        else
+            render json: { errors: prescription.errors.full_messages }, status: :unprocessable_entity
+        end
+    end
+
     private
 
     def prescription_params

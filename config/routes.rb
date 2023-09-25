@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   patch '/patients/:id', to: "patients#update"
   post '/addpharmacy', to: "pharmacies#create"
   patch '/prescription/:id', to: "prescriptions#update"
+  delete '/prescriptions/:id', to: "prescriptions#destroy"
   
 
   # Routing logic: fallback requests for React Router.
