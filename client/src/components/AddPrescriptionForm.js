@@ -30,6 +30,8 @@ function AddPrescriptionForm({ patients, setPatients, toggleForm, setToggleForm 
         )
     })
 
+    const patient = patients.find(patient => patient.id === parseInt(id))
+
     
 
     const handleSubmit = e => {
@@ -56,6 +58,15 @@ function AddPrescriptionForm({ patients, setPatients, toggleForm, setToggleForm 
                 setPatients(updatedPatients)
                 setToggleForm(!toggleForm)
             }
+        })
+        .then(() => {
+          fetch('/send_email', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+              email: patient.email
+          })
+          })
         })
     }
 
