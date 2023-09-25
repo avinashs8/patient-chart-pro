@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react'
 import { UserContext } from '../context/User'
+import { useNavigate } from 'react-router-dom'
 
 function AddPharmacy() {
 
@@ -9,6 +10,7 @@ function AddPharmacy() {
         address: '',
         phone_number: ''
     })
+    const navigate = useNavigate()
 
     const handleChange = e =>{
         const { name, value } = e.target
@@ -30,6 +32,7 @@ function AddPharmacy() {
             if(!data.errors){
                 const updatedPharmacies = [...pharmacies, data]
                 setPharmacies(updatedPharmacies)
+                navigate('/allpatients')
             }
         })
     }
@@ -43,7 +46,7 @@ function AddPharmacy() {
           <input
             type="text"
             className="form-control"
-            name="Name"
+            name="name"
             placeholder="Name"
             value={formData.name}
             onChange={handleChange}

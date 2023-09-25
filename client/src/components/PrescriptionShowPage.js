@@ -1,11 +1,13 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { UserContext } from '../context/User'
+import EditPrescriptionForm from './EditPrescriptionForm'
 
 function PrescriptionShowPage({ patients, setPatients }) {
 
     const { patientId, id } = useParams()
     const { user, pharmacies } = useContext(UserContext)
+    const [ toggleForm, setToggleForm ] = useState(false)
 
     const patient = patients.find(p => p.id === parseInt(patientId))
 
@@ -13,7 +15,7 @@ function PrescriptionShowPage({ patients, setPatients }) {
         return <h1>Loading...</h1>
     }
     
-    
+
     const prescription = patient.prescriptions.find(p => p.id === parseInt(id))
     
     const pharmacy = pharmacies.find(p => p.id === prescription.pharmacy_id)
@@ -22,9 +24,12 @@ function PrescriptionShowPage({ patients, setPatients }) {
         return <h1>Loading...</h1>
     }
     
-    
+    const deletePrescription = () =>{
+      
+    }
 
   return (
+  <div>
     <div className="d-flex justify-content-center align-items-center vh-100">
       <div className="card border-0 rounded-lg shadow-lg" style={{ width: '40rem' }}>
         <div className="card-body">
@@ -41,12 +46,16 @@ function PrescriptionShowPage({ patients, setPatients }) {
             </div>
           </div>
           <div className="mt-4">
-            <a href="#" className="btn btn-primary btn-block">Learn More</a>
+            <button className="btn btn-primary btn-block" onClick={() => setToggleForm(!toggleForm)}>Edit Prescription</button>
+          </div>
+          <div className="mt-4">
+            <button className="btn btn-primary btn-block" onClick={() => deletePrescription}>Delete Prescription</button>
           </div>
         </div>
       </div>
     </div>
-
+    {toggleForm ? <EditPrescriptionForm toggleForm={toggleForm} setToggleForm={setToggleForm} patients={patients} setPatients={setPatients} prescription={prescription}/> : null}
+  </div>
 
   )
 }

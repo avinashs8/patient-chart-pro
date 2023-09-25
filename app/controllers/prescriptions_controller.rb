@@ -9,6 +9,15 @@ class PrescriptionsController < ApplicationController
         end
     end
 
+    def update
+        prescription = Prescription.find_by(id: params[:id])
+        if prescription.update(prescription_params)
+            render json: prescription, status: :ok 
+        else
+            render json: { errors: prescription.errors.full_messages }, status: :unprocessable_entity
+        end
+    end
+
     private
 
     def prescription_params
