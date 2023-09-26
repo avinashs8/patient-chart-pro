@@ -10,4 +10,14 @@ class PatientMailer < ApplicationMailer
             mail(to: @recipient_email, subject: 'You Have a New Prescription')
         end
 
+        def update_prescription_email(email, name, doctor, prescription_medication, prescription_dose, prescription_instructions)
+            @recipient_email = email
+            @name = name 
+            @doctor = doctor
+            @medication = prescription_medication
+            @dose = prescription_dose
+            @instructions = prescription_instructions
+            mail(to: @recipient_email, subject: 'Your Prescription Has Been Updated')
+        end
+
 end
