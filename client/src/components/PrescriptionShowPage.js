@@ -17,6 +17,7 @@ function PrescriptionShowPage({ patients, setPatients }) {
 
   const prescription = patient.prescriptions.find((p) => p.id === parseInt(id));
 
+
   if (!prescription) {
     return <h1>Loading...</h1>;
   }
@@ -44,8 +45,20 @@ function PrescriptionShowPage({ patients, setPatients }) {
         });
         setPatients(prescriptionsAfterDelete);
         navigate(`/patients/${patientId}/prescriptions`);
-      });
-  };
+      })
+      .then(() => {
+        fetch('/delete_prescription_email', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({
+            email: patient.email,
+            name: patient.name,
+            user: user.name,
+            prescription: prescription.medication
+        })
+        })
+      })
+  }
 
   return (
     <div>

@@ -20,7 +20,7 @@ Rails.application.routes.draw do
 
   post '/new_prescription_email', to: 'patient_mailer#new_prescription_email'
   post '/update_prescription_email', to: 'patient_mailer#update_prescription_email'
-  
+  post '/delete_prescription_email', to: 'patient_mailer#delete_prescription_email'
 
   # Routing logic: fallback requests for React Router.
   # Leave this here to help deploy your app later!

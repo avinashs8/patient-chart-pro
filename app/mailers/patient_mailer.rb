@@ -20,4 +20,12 @@ class PatientMailer < ApplicationMailer
             mail(to: @recipient_email, subject: 'Your Prescription Has Been Updated')
         end
 
+        def delete_prescription_email(email, name, doctor, medication)
+            @email = email
+            @name = name
+            @doctor = doctor 
+            @medication = medication
+            mail(to: @email, subject: 'Medication has been discontinued')
+        end
+
 end

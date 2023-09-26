@@ -22,4 +22,13 @@ class PatientMailerController < ApplicationController
           PatientMailer.update_prescription_email(email, name, doctor, prescription_medication, prescription_dose, prescription_instructions).deliver_now
           render json: { message: 'Email sent successfully' }
         end
+
+        def delete_prescription_email
+          email = params[:email]
+          name = params[:name]
+          doctor = params[:user]
+          medication = params[:prescription]
+          PatientMailer.delete_prescription_email(email, name, doctor, medication).deliver_now
+          render json: { message: 'Email sent successfully' }
+        end
 end
