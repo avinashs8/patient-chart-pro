@@ -1,9 +1,13 @@
 class PatientMailer < ApplicationMailer
 
     
-        def sample_email(email)
+        def new_prescription_email(email, name, doctor, pharmacy_name, pharmacy_address)
             @recipient_email = email
-            mail(to: @recipient_email, subject: 'Sample Email Subject')
+            @name = name
+            @doctor = doctor
+            @pharmacy_name = pharmacy_name
+            @pharmacy_address = pharmacy_address
+            mail(to: @recipient_email, subject: 'You Have a New Prescription')
         end
 
 end

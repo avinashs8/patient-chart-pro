@@ -30,6 +30,9 @@ function AddPrescriptionForm({ patients, setPatients, toggleForm, setToggleForm 
         )
     })
 
+    const recievingPharmacy = pharmacies.find(pharmacy => pharmacy.id === parseInt(formData.pharmacy_id))
+    
+
     const patient = patients.find(patient => patient.id === parseInt(id))
 
     
@@ -60,11 +63,14 @@ function AddPrescriptionForm({ patients, setPatients, toggleForm, setToggleForm 
             }
         })
         .then(() => {
-          fetch('/send_email', {
+          fetch('/new_prescription_email', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
-              email: patient.email
+              email: patient.email,
+              name: patient.name,
+              user: user.name,
+              pharmacy: recievingPharmacy
           })
           })
         })

@@ -18,7 +18,7 @@ Rails.application.routes.draw do
   delete '/prescriptions/:id', to: "prescriptions#destroy"
   
 
-  post 'send_email', to: 'patient_mailer#sample_email'
+  post 'new_prescription_email', to: 'patient_mailer#new_prescription_email'
   
   
 
