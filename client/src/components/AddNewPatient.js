@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
 
 function AddNewPatient({ patients, setPatients }) {
   const [formData, setFormData] = useState({
@@ -7,21 +7,21 @@ function AddNewPatient({ patients, setPatients }) {
     email: '',
     address: '',
     phone_number: '',
-  });
+  })
 
-  const [validationErrors, setValidationErrors] = useState({});
+  const [validationErrors, setValidationErrors] = useState({})
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value } = e.target
     setFormData({
       ...formData,
       [name]: value,
-    });
-  };
+    })
+  }
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    setValidationErrors({});
+    e.preventDefault()
+    setValidationErrors({})
 
     fetch('/addpatient', {
       method: 'POST',
@@ -31,20 +31,20 @@ function AddNewPatient({ patients, setPatients }) {
       .then((resp) => resp.json())
       .then((data) => {
         if (data.errors) {
-          setValidationErrors(data.errors);
+          setValidationErrors(data.errors)
         } else {
-          const newPatients = [...patients, data];
-          setPatients(newPatients);
+          const newPatients = [...patients, data]
+          setPatients(newPatients)
           setFormData({
             name: '',
             date_of_birth: '',
             email: '',
             address: '',
             phone_number: '',
-          });
+          })
         }
-      });
-  };
+      })
+  }
 
   return (
     <div className="container mt-5">
@@ -152,7 +152,7 @@ function AddNewPatient({ patients, setPatients }) {
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default AddNewPatient;
+export default AddNewPatient

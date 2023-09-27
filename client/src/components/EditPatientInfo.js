@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useState } from 'react'
+import { useParams } from 'react-router-dom'
 
 function EditPatientInfo({ patients, setPatients, patient, setToggleForm, toggleForm }) {
   const [formData, setFormData] = useState({
@@ -8,23 +8,23 @@ function EditPatientInfo({ patients, setPatients, patient, setToggleForm, toggle
     email: patient.email,
     address: patient.address,
     phone_number: patient.phone_number,
-  });
+  })
 
-  const { id } = useParams();
+  const { id } = useParams()
 
-  const [validationErrors, setValidationErrors] = useState({});
+  const [validationErrors, setValidationErrors] = useState({})
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value } = e.target
     setFormData({
       ...formData,
       [name]: value,
-    });
-  };
+    })
+  }
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    setValidationErrors({});
+    e.preventDefault()
+    setValidationErrors({})
 
     fetch(`/patients/${id}`, {
       method: 'PATCH',
@@ -34,20 +34,20 @@ function EditPatientInfo({ patients, setPatients, patient, setToggleForm, toggle
       .then((resp) => resp.json())
       .then((data) => {
         if (data.errors) {
-          setValidationErrors(data.errors);
+          setValidationErrors(data.errors)
         } else {
           const updatedPatients = patients.map((p) => {
             if (p.id === parseInt(id)) {
-              return data;
+              return data
             } else {
-              return p;
+              return p
             }
-          });
-          setPatients(updatedPatients);
-          setToggleForm(!toggleForm);
+          })
+          setPatients(updatedPatients)
+          setToggleForm(!toggleForm)
         }
-      });
-  };
+      })
+  }
 
   return (
     <div className="container mt-5">
@@ -151,7 +151,7 @@ function EditPatientInfo({ patients, setPatients, patient, setToggleForm, toggle
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default EditPatientInfo;
+export default EditPatientInfo
