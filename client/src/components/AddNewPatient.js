@@ -1,117 +1,158 @@
-import React, { useState } from 'react'
-
+import React, { useState } from 'react';
 
 function AddNewPatient({ patients, setPatients }) {
+  const [formData, setFormData] = useState({
+    name: '',
+    date_of_birth: '',
+    email: '',
+    address: '',
+    phone_number: '',
+  });
 
+  const [validationErrors, setValidationErrors] = useState({});
 
-    const [formData, setFormData] = useState({
-        name: '',
-        date_of_birth: '',
-        email: '',
-        address: '',
-        phone_number: '',
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setValidationErrors({});
+
+    fetch('/addpatient', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(formData),
     })
+      .then((resp) => resp.json())
+      .then((data) => {
+        if (data.errors) {
+          setValidationErrors(data.errors);
+        } else {
+          const newPatients = [...patients, data];
+          setPatients(newPatients);
+          setFormData({
+            name: '',
+            date_of_birth: '',
+            email: '',
+            address: '',
+            phone_number: '',
+          });
+        }
+      });
+  };
 
-    
-
-    const handleChange = e => {
-        const { name, value } = e.target
-        setFormData({
-            ...formData,
-            [name]: value 
-        })
-    }
-
-    const handleSubmit = e => {
-        e.preventDefault()
-        fetch('/addpatient', {
-            method: 'POST', 
-            headers: { 'Content-Type': 'application/json'},
-            body: JSON.stringify(formData)
-        })
-        .then(resp => resp.json())
-        .then(data => {
-            if(!data.errors){
-                const newPatients = [...patients, data]
-                setPatients(newPatients)
-            }
-        })
-    }
   return (
-    <div>
-        <form className="row g-3" onSubmit={handleSubmit}>
-        <div className="col-md-6">
-          <label htmlFor="inputName" className="form-label">
-            Name
-          </label>
-          <input
-            type="text"
-            className="form-control"
-            name="name"
-            placeholder="First and Last Name"
-            value={formData.name}
-            onChange={handleChange}
-          />
+    <div className="container mt-5">
+      <div className="row justify-content-center">
+        <div className="col-md-8">
+          <h2 className="mb-4">Add New Patient</h2>
+          <form
+            className="row g-3 needs-validation was-validated"
+            onSubmit={handleSubmit}
+            noValidate
+          >
+            <div className="mb-3">
+              <label htmlFor="inputName" className="form-label">
+                Name
+              </label>
+              <input
+                type="text"
+                className={`form-control ${
+                  validationErrors.name ? 'is-invalid' : ''
+                }`}
+                name="name"
+                placeholder="First and Last Name"
+                value={formData.name}
+                onChange={handleChange}
+                required
+              />
+              <div className="invalid-feedback">{validationErrors.name}</div>
+            </div>
+            <div className="mb-3">
+              <label htmlFor="inputEmailAddress" className="form-label">
+                Email Address
+              </label>
+              <input
+                type="email"
+                className={`form-control ${
+                  validationErrors.email ? 'is-invalid' : ''
+                }`}
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                required
+              />
+              <div className="invalid-feedback">{validationErrors.email}</div>
+            </div>
+            <div className="mb-3">
+              <label htmlFor="inputDateOfBirth" className="form-label">
+                Date of Birth
+              </label>
+              <input
+                type="text"
+                className={`form-control ${
+                  validationErrors.date_of_birth ? 'is-invalid' : ''
+                }`}
+                name="date_of_birth"
+                placeholder="yyyy-mm-dd"
+                value={formData.date_of_birth}
+                onChange={handleChange}
+                required
+              />
+              <div className="invalid-feedback">
+                {validationErrors.date_of_birth}
+              </div>
+            </div>
+            <div className="mb-3">
+              <label htmlFor="inputAddress" className="form-label">
+                Address
+              </label>
+              <input
+                type="text"
+                className={`form-control ${
+                  validationErrors.address ? 'is-invalid' : ''
+                }`}
+                name="address"
+                placeholder="1234 Main St"
+                value={formData.address}
+                onChange={handleChange}
+                required
+              />
+              <div className="invalid-feedback">{validationErrors.address}</div>
+            </div>
+            <div className="mb-3">
+              <label htmlFor="inputPhoneNumber" className="form-label">
+                Phone Number
+              </label>
+              <input
+                type="text"
+                className={`form-control ${
+                  validationErrors.phone_number ? 'is-invalid' : ''
+                }`}
+                name="phone_number"
+                value={formData.phone_number}
+                onChange={handleChange}
+                required
+              />
+              <div className="invalid-feedback">
+                {validationErrors.phone_number}
+              </div>
+            </div>
+            <div className="text-center">
+              <button type="submit" className="btn btn-primary">
+                Add Patient
+              </button>
+            </div>
+          </form>
         </div>
-        <div className="col-md-6">
-          <label htmlFor="inputEmailAddress" className="form-label">
-            Email Address
-          </label>
-          <input
-            type="text"
-            className="form-control"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="col-md-6">
-          <label htmlFor="inputDateOfBirth" className="form-label">
-            Date of Birth
-          </label>
-          <input
-            type="text"
-            className="form-control"
-            name="date_of_birth"
-            placeholder='yyyy-mm-dd'
-            value={formData.date_of_birth}
-            onChange={handleChange}
-          />
-        </div>
-        
-        <div className="col-12">
-          <label htmlFor="inputAddress" className="form-label">
-            Address
-          </label>
-          <input
-            type="text"
-            className="form-control"
-            name="address"
-            placeholder="1234 Main St"
-            value={formData.address}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="col-12">
-          <label htmlFor="inputPhoneNumber" className="form-label">
-            Phone Number
-          </label>
-          <input
-            type="text"
-            className="form-control"
-            name="phone_number"
-            value={formData.phone_number}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="col-12 d-flex justify-content-center">
-          <button type="submit" className="btn btn-primary">
-            Add Patient
-          </button>
-        </div>
-      </form>
+      </div>
     </div>
-  )
+  );
 }
 
-export default AddNewPatient
+export default AddNewPatient;

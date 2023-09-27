@@ -6,12 +6,20 @@ import PatientCard from './PatientCard'
 function AllPatients({ patients, setPatients }) {
 
   const [toggleForm, setToggleForm] = useState(false)
+  const [search, setSearch] = useState([])
 
-  const patientsList = patients.map(patient => {
+
+  const searchedPatients = patients.filter(patient => patient.name.toLowerCase().includes(search))
+
+  const patientsList = searchedPatients.map(patient => {
       return(
         <PatientCard key={patient.id} patient={patient}/>
       )
   })
+
+  const handleChange = e => {
+    setSearch(e.target.value)
+  }
 
 
     if(patients.length < 1){
@@ -26,6 +34,8 @@ function AllPatients({ patients, setPatients }) {
     }
   return (
     <div>
+      <h1>Search By Name:</h1>
+      <input placeholder='Search' value={search} onChange={handleChange}></input>
       <h3>All Patients:</h3>
       {patientsList}
       <button onClick={() => setToggleForm(!toggleForm)}>Add Patient</button>

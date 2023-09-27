@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   post '/addpharmacy', to: "pharmacies#create"
   patch '/prescription/:id', to: "prescriptions#update"
   delete '/prescriptions/:id', to: "prescriptions#destroy"
+  get '/patients', to: "patients#index"
   
 
   post '/new_prescription_email', to: 'patient_mailer#new_prescription_email'
