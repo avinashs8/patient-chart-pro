@@ -32,6 +32,8 @@ function AddNewPatient({ patients, setPatients }) {
       .then((data) => {
         if (data.errors) {
           setValidationErrors(data.errors)
+          console.log(data)
+          console.log(validationErrors)
         } else {
           const newPatients = [...patients, data]
           setPatients(newPatients)
@@ -54,7 +56,7 @@ function AddNewPatient({ patients, setPatients }) {
           <form
             className="row g-3 needs-validation was-validated"
             onSubmit={handleSubmit}
-            noValidate
+            
           >
             <div className="mb-3">
               <label htmlFor="inputName" className="form-label">
@@ -63,15 +65,16 @@ function AddNewPatient({ patients, setPatients }) {
               <input
                 type="text"
                 className={`form-control ${
-                  validationErrors.name ? 'is-invalid' : ''
+                  validationErrors ? 'is-invalid' : ''
                 }`}
                 name="name"
                 placeholder="First and Last Name"
                 value={formData.name}
                 onChange={handleChange}
+                autoFocus
                 required
               />
-              <div className="invalid-feedback">{validationErrors.name}</div>
+              <div className="invalid-feedback">{validationErrors[0]}</div>
             </div>
             <div className="mb-3">
               <label htmlFor="inputEmailAddress" className="form-label">
@@ -87,7 +90,7 @@ function AddNewPatient({ patients, setPatients }) {
                 onChange={handleChange}
                 required
               />
-              <div className="invalid-feedback">{validationErrors.email}</div>
+              <div className="invalid-feedback">{validationErrors[1]}</div>
             </div>
             <div className="mb-3">
               <label htmlFor="inputDateOfBirth" className="form-label">
@@ -105,7 +108,7 @@ function AddNewPatient({ patients, setPatients }) {
                 required
               />
               <div className="invalid-feedback">
-                {validationErrors.date_of_birth}
+                {validationErrors[2]}
               </div>
             </div>
             <div className="mb-3">
@@ -123,7 +126,7 @@ function AddNewPatient({ patients, setPatients }) {
                 onChange={handleChange}
                 required
               />
-              <div className="invalid-feedback">{validationErrors.address}</div>
+              <div className="invalid-feedback">{validationErrors[3]}</div>
             </div>
             <div className="mb-3">
               <label htmlFor="inputPhoneNumber" className="form-label">
@@ -140,7 +143,7 @@ function AddNewPatient({ patients, setPatients }) {
                 required
               />
               <div className="invalid-feedback">
-                {validationErrors.phone_number}
+                {validationErrors[4]}
               </div>
             </div>
             <div className="text-center">
