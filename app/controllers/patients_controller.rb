@@ -1,4 +1,5 @@
 class PatientsController < ApplicationController
+    before_action :authorize
 
     def index
         render json: Patient.all, status: :ok
@@ -26,5 +27,9 @@ class PatientsController < ApplicationController
 
     def patient_params
         params.permit(:name, :date_of_birth, :email, :address, :phone_number)
+    end
+
+    def authorize
+        return render json: { error: "Not authorized" }, status: :unauthorized unless session.include? :user_id
     end
 end

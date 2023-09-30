@@ -1,4 +1,5 @@
 class PharmaciesController < ApplicationController
+    before_action :authorize
 
     def index
         render json: Pharmacy.all, status: :ok
@@ -17,5 +18,9 @@ class PharmaciesController < ApplicationController
 
     def pharmacy_params
         params.permit(:name, :address, :phone_number)
+    end
+
+    def authorize
+        return render json: { error: "Not authorized" }, status: :unauthorized unless session.include? :user_id
     end
 end

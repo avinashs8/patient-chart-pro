@@ -1,4 +1,5 @@
 class PrescriptionsController < ApplicationController
+    before_action :authorize
 
     def create
         prescription = Prescription.create(prescription_params)
@@ -31,5 +32,9 @@ class PrescriptionsController < ApplicationController
 
     def prescription_params
         params.permit(:medication, :dose, :instructions, :quantity, :patient_id, :user_id, :pharmacy_id)
+    end
+
+    def authorize
+        return render json: { error: "Not authorized" }, status: :unauthorized unless session.include? :user_id
     end
 end
