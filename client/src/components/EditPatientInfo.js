@@ -12,7 +12,7 @@ function EditPatientInfo({ patients, setPatients, patient, setToggleForm, toggle
 
   const { id } = useParams()
 
-  const [validationErrors, setValidationErrors] = useState({})
+  const [validationErrors, setValidationErrors] = useState([])
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -24,8 +24,6 @@ function EditPatientInfo({ patients, setPatients, patient, setToggleForm, toggle
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    setValidationErrors({})
-
     fetch(`/patients/${id}`, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
@@ -34,7 +32,10 @@ function EditPatientInfo({ patients, setPatients, patient, setToggleForm, toggle
       .then((resp) => resp.json())
       .then((data) => {
         if (data.errors) {
-          setValidationErrors(data.errors)
+          const errorLis = data.errors.map((e, index) => {
+            return <li key={index}>{e}</li>
+          })
+          setValidationErrors(errorLis)
         } else {
           const updatedPatients = patients.map((p) => {
             if (p.id === parseInt(id)) {
@@ -139,6 +140,7 @@ function EditPatientInfo({ patients, setPatients, patient, setToggleForm, toggle
                 Update Patient Info
               </button>
             </div>
+            <ul>{validationErrors}</ul>
           </form>
         </div>
       </div>

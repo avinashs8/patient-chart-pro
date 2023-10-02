@@ -16,7 +16,7 @@ function EditPrescriptionForm({ toggleForm, setToggleForm, patients, setPatients
     pharmacy_id: prescription.pharmacy_id,
   })
 
-  const [validationErrors, setValidationErrors] = useState({})
+  const [validationErrors, setValidationErrors] = useState([])
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -36,8 +36,6 @@ function EditPrescriptionForm({ toggleForm, setToggleForm, patients, setPatients
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    setValidationErrors({})
-
     fetch(`/prescription/${id}`, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
@@ -62,6 +60,11 @@ function EditPrescriptionForm({ toggleForm, setToggleForm, patients, setPatients
           })
           setPatients(updatedPatients)
           setToggleForm(!toggleForm)
+        } else {
+            const errorLis = data.errors.map((e, index) => {
+              return <li key={index}>{e}</li>
+            })
+            setValidationErrors(errorLis)
         }
       })
       .then(() => {
@@ -98,7 +101,6 @@ function EditPrescriptionForm({ toggleForm, setToggleForm, patients, setPatients
                 required
                 autoFocus
               />
-              <div className="invalid-feedback">{validationErrors.medication}</div>
             </div>
             <div className="mb-3">
               <label htmlFor="inputDose" className="form-label">
@@ -167,6 +169,7 @@ function EditPrescriptionForm({ toggleForm, setToggleForm, patients, setPatients
                 Update Prescription
               </button>
             </div>
+            <ul>{validationErrors}</ul>
           </form>
         </div>
       </div>
