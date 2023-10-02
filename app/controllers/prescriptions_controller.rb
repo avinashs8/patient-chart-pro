@@ -1,6 +1,10 @@
 class PrescriptionsController < ApplicationController
     before_action :authorize
 
+    def index
+        render json: Prescription.all, status: :ok
+    end
+
     def create
         prescription = Prescription.create(prescription_params)
         if prescription.valid?
