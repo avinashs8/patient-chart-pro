@@ -6,4 +6,5 @@ class User < ApplicationRecord
     has_many :pharmacies, through: :prescriptions
 
     validates :name, :password, :password_confirmation, :email, :specialization, :address, :phone_number, presence: true
+    validates :email, uniqueness: true
 end

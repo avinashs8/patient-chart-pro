@@ -26,8 +26,6 @@ function Signup() {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    setValidationErrors({})
-
     fetch('/signup', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -39,7 +37,10 @@ function Signup() {
           signup(data)
           navigate('/')
         } else {
-          setValidationErrors(data.errors)
+          const errorLis = data.errors.map((e, index) => {
+            return <li key={index}>{e}</li>
+          })
+          setValidationErrors(errorLis)
         }
       })
   }

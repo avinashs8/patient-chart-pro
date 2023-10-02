@@ -30,19 +30,13 @@ function MyPatients({ patients, setPatients }) {
 
   if (user.patients.length < 1) {
     return (
-      <div className="container mt-5">
-        <h1 className="mb-4">Currently There Are No Patients</h1>
-        <h3>Click Here to Add a New Patient:</h3>
-        <button
-          className="btn btn-primary"
-          onClick={() => setToggleForm(!toggleForm)}
-        >
-          Add Patient
-        </button>
-        {toggleForm ? (
-          <AddNewPatient patients={patients} setPatients={setPatients} />
-        ) : null}
+      <div className="container text-center mt-5">
+      <div className="jumbotron">
+        <h1 className="display-4">No Patients Found</h1>
+        <p className="lead">It looks like you have no patients.</p>
+        <hr className="my-4" />
       </div>
+    </div>
     )
   }
 

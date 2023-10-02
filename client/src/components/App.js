@@ -17,20 +17,22 @@ import { UserContext } from '../context/User';
 function App() {
 
   const [ patients, setPatients ] = useState([])
-  const { user } = useContext(UserContext)
+  const { user, loggedIn } = useContext(UserContext)
 
   useEffect(() => {
     fetch('/patients')
     .then(resp => resp.json())
     .then(data => setPatients(data))
-  }, [user])
+  }, [user, loggedIn])
+
+  
 
   return (
     <div>
       <Navbar />
       <Routes>
         <Route path='/' element={<Home />}/>
-        <Route path='/allpatients' element={<AllPatients patients={patients} setPatients={setPatients}/>} />
+        <Route path='/patients' element={<AllPatients patients={patients} setPatients={setPatients}/>} />
         <Route path='/mypatients' element={<MyPatients patients={patients}/>} />
         <Route path='/allpatients/:id' element={<PatientShowPage patients={patients} setPatients={setPatients}/>}/>
         <Route path='/patients/:id/prescriptions' element={<PatientPrescriptions patients={patients} setPatients={setPatients}/>}/>

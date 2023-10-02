@@ -20,16 +20,28 @@ function AllPatients({ patients, setPatients }) {
 
   if (patients.length < 1) {
     return (
-      <div className="container mt-5">
-        <h1 className="mb-4">Currently There Are No Patients</h1>
-        <h3>Click Here to Add a New Patient:</h3>
-        <button
-          className="btn btn-primary"
-          onClick={() => setToggleForm(!toggleForm)}
-        >
-          Add Patient
-        </button>
-        {toggleForm ? <AddNewPatient patients={patients} setPatients={setPatients} /> : null}
+      <div className="container text-center mt-5">
+        <div className="jumbotron">
+          <h1 className="display-4">No Patients Found</h1>
+          <p className="lead">It looks like there are currently no patients in the system.</p>
+          <hr className="my-4" />
+          <p className="lead">
+            <button
+              className="btn btn-primary btn-lg"
+              onClick={() => setToggleForm(!toggleForm)}
+            >
+              Add a New Patient
+            </button>
+          </p>
+        </div>
+        {toggleForm && (
+          <AddNewPatient
+            patients={patients}
+            setPatients={setPatients}
+            setToggleForm={setToggleForm}
+            toggleForm={toggleForm}
+          />
+        )}
       </div>
     );
   }
@@ -52,17 +64,25 @@ function AllPatients({ patients, setPatients }) {
           </div>
         </div>
       </div>
-      <div className='text-center'>
-      <button
-        className="btn btn-primary mt-4 btn-lg"
-        onClick={() => setToggleForm(!toggleForm)}
-      >
-        Add Patient
-      </button>
+      <div className="text-center">
+        <button
+          className="btn btn-primary mt-4 btn-lg"
+          onClick={() => setToggleForm(!toggleForm)}
+        >
+          Add Patient
+        </button>
       </div>
-      {toggleForm ? <AddNewPatient patients={patients} setPatients={setPatients} /> : null}
+      {toggleForm && (
+        <AddNewPatient
+          patients={patients}
+          setPatients={setPatients}
+          toggleForm={toggleForm}
+          setToggleForm={setToggleForm}
+        />
+      )}
     </div>
   );
 }
 
 export default AllPatients;
+

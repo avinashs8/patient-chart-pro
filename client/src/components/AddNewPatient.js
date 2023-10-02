@@ -1,6 +1,8 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 
-function AddNewPatient({ patients, setPatients }) {
+
+function AddNewPatient({ patients, setPatients, toggleForm, setToggleForm }) {
+  
   const [formData, setFormData] = useState({
     name: '',
     date_of_birth: '',
@@ -9,7 +11,7 @@ function AddNewPatient({ patients, setPatients }) {
     phone_number: '',
   })
 
-  const [validationErrors, setValidationErrors] = useState({})
+  const [validationErrors, setValidationErrors] = useState([])
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -19,10 +21,9 @@ function AddNewPatient({ patients, setPatients }) {
     })
   }
 
+
   const handleSubmit = (e) => {
     e.preventDefault()
-    setValidationErrors({})
-
     fetch('/addpatient', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -31,9 +32,11 @@ function AddNewPatient({ patients, setPatients }) {
       .then((resp) => resp.json())
       .then((data) => {
         if (data.errors) {
-          setValidationErrors(data.errors)
-          console.log(data)
-          console.log(validationErrors)
+          const errorLis = data.errors.map((e, index) => {
+            return <li key={index}>{e}</li>
+          })
+          setValidationErrors(errorLis)
+          
         } else {
           const newPatients = [...patients, data]
           setPatients(newPatients)
@@ -44,6 +47,7 @@ function AddNewPatient({ patients, setPatients }) {
             address: '',
             phone_number: '',
           })
+          setToggleForm(!toggleForm)
         }
       })
   }
@@ -143,6 +147,7 @@ function AddNewPatient({ patients, setPatients }) {
                 Add Patient
               </button>
             </div>
+            <ul>{validationErrors}</ul>
           </form>
         </div>
       </div>

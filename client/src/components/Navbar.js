@@ -29,7 +29,7 @@ function Navbar() {
                 <Link className="nav-link active" aria-current="page" to="/" exact>Home</Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link active" aria-current="page" to="/allpatients" exact>All Patients</Link>
+                <Link className="nav-link active" aria-current="page" to="/patients" exact>All Patients</Link>
               </li>
               <li className="nav-item">
                 <Link className="nav-link active" aria-current="page" to="/mypatients" exact>My Patients</Link>

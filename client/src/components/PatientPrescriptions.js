@@ -23,8 +23,12 @@ function PatientPrescriptions({ patients, setPatients }) {
 
   return (
     <div className="container mt-5">
-      <h1 className="mb-4">{patient.name}'s Prescriptions:</h1>
-      {prescriptions}
+      <div className="card">
+        <div className="card-header">
+          <h1 className="mb-4">{patient.name}'s Prescriptions:</h1>
+        </div>
+        <div className="card-body">{prescriptions}</div>
+      </div>
       <button
         className="btn btn-primary mt-4"
         onClick={() => setToggleForm(!toggleForm)}
@@ -44,4 +48,3 @@ function PatientPrescriptions({ patients, setPatients }) {
 }
 
 export default PatientPrescriptions;
-

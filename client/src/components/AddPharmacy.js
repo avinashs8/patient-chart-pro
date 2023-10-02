@@ -1,29 +1,28 @@
-import React, { useContext, useState } from 'react';
-import { UserContext } from '../context/User';
-import { useNavigate } from 'react-router-dom';
+import React, { useContext, useState } from 'react'
+import { UserContext } from '../context/User'
+import { useNavigate } from 'react-router-dom'
 
 function AddPharmacy() {
-  const { pharmacies, setPharmacies } = useContext(UserContext);
+  const { pharmacies, setPharmacies } = useContext(UserContext)
   const [formData, setFormData] = useState({
     name: '',
     address: '',
     phone_number: '',
-  });
-  const navigate = useNavigate();
+  })
+  const navigate = useNavigate()
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value } = e.target
     setFormData({
       ...formData,
       [name]: value,
-    });
-  };
+    })
+  }
+
+  const [validationErrors, setValidationErrors] = useState([])
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-
-    
-
+    e.preventDefault()
     fetch('/addpharmacy', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -32,12 +31,17 @@ function AddPharmacy() {
       .then((resp) => resp.json())
       .then((data) => {
         if (!data.errors) {
-          const updatedPharmacies = [...pharmacies, data];
-          setPharmacies(updatedPharmacies);
-          navigate('/allpatients');
+          const updatedPharmacies = [...pharmacies, data]
+          setPharmacies(updatedPharmacies)
+          navigate('/allpatients')
+        } else{
+          const errorLis = data.errors.map((e, index) => {
+            return <li key={index}>{e}</li>
+          })
+          setValidationErrors(errorLis)
         }
-      });
-  };
+      })
+  }
 
   return (
     <div className="container mt-5">
@@ -112,11 +116,12 @@ function AddPharmacy() {
                 Add Pharmacy
               </button>
             </div>
+            <ul>{validationErrors}</ul>
           </form>
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default AddPharmacy;
+export default AddPharmacy

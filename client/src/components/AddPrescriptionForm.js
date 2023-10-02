@@ -1,10 +1,10 @@
-import React, { useContext, useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
-import { UserContext } from '../context/User';
+import React, { useContext, useState } from 'react'
+import { useParams, Link } from 'react-router-dom'
+import { UserContext } from '../context/User'
 
 function AddPrescriptionForm({ patients, setPatients, toggleForm, setToggleForm }) {
-  const { id } = useParams();
-  const { user, pharmacies } = useContext(UserContext);
+  const { id } = useParams()
+  const { user, setUser, pharmacies } = useContext(UserContext)
   const [formData, setFormData] = useState({
     medication: '',
     dose: '',
@@ -13,32 +13,34 @@ function AddPrescriptionForm({ patients, setPatients, toggleForm, setToggleForm 
     patient_id: id,
     user_id: user.id,
     pharmacy_id: '',
-  });
+  })
 
-  const [validationErrors, setValidationErrors] = useState({});
+  const [validationErrors, setValidationErrors] = useState([])
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value } = e.target
     setFormData({
       ...formData,
       [name]: value,
-    });
-  };
+    })
+  }
 
+  if(!pharmacies){
+    return <h1>Loading...</h1>
+  }
+  
   const selectPharmacy = pharmacies.map((pharmacy) => (
     <option value={pharmacy.id} key={pharmacy.id}>
       {pharmacy.name}
     </option>
-  ));
+  ))
 
-  const recievingPharmacy = pharmacies.find((pharmacy) => pharmacy.id === parseInt(formData.pharmacy_id));
+  const recievingPharmacy = pharmacies.find((pharmacy) => pharmacy.id === parseInt(formData.pharmacy_id))
 
-  const patient = patients.find((patient) => patient.id === parseInt(id));
+  const patient = patients.find((patient) => patient.id === parseInt(id))
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    setValidationErrors({});
-
+    e.preventDefault()
     fetch('/addprescription', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -47,21 +49,27 @@ function AddPrescriptionForm({ patients, setPatients, toggleForm, setToggleForm 
       .then((resp) => resp.json())
       .then((data) => {
         if (data.errors) {
-          setValidationErrors(data.errors);
+          const errorLis = data.errors.map((e, index) => {
+            return <li key={index}>{e}</li>
+          })
+          setValidationErrors(errorLis)
         } else {
           const updatedPatients = patients.map((patient) => {
             if (patient.id === parseInt(id)) {
               if (!patient.prescriptions) {
-                patient.prescriptions = [];
+                patient.prescriptions = []
               }
-              patient.prescriptions.push(data);
-              return patient;
+              patient.prescriptions.push(data)
+              return patient
             } else {
-              return patient;
+              return patient
             }
-          });
-          setPatients(updatedPatients);
-          setToggleForm(!toggleForm);
+          })
+          setPatients(updatedPatients)
+          setToggleForm(!toggleForm)
+          const updatedUser = {...user, patients: updatedPatients}
+          console.log(updatedUser)
+          setUser(updatedUser)
         }
       })
       .then(() => {
@@ -74,9 +82,9 @@ function AddPrescriptionForm({ patients, setPatients, toggleForm, setToggleForm 
             user: user.name,
             pharmacy: recievingPharmacy,
           }),
-        });
-      });
-  };
+        })
+      })
+  }
 
   return (
     <div className="container mt-5">
@@ -95,6 +103,7 @@ function AddPrescriptionForm({ patients, setPatients, toggleForm, setToggleForm 
                 placeholder="Medication Name"
                 value={formData.medication}
                 onChange={handleChange}
+                autoFocus
                 required
               />
               <div className="invalid-feedback">{validationErrors.medication}</div>
@@ -166,12 +175,13 @@ function AddPrescriptionForm({ patients, setPatients, toggleForm, setToggleForm 
                 Add Prescription
               </button>
             </div>
+            <ul>{validationErrors}</ul>
           </form>
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default AddPrescriptionForm;
+export default AddPrescriptionForm
 
