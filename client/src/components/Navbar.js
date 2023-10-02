@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'
 
 function Navbar() {
 
-  const { loggedIn, logout } = useContext(UserContext)
+  const { loggedIn, logout, setloggedIn } = useContext(UserContext)
   const navigate = useNavigate()
 
   const logoutUser = () => {
@@ -54,9 +54,6 @@ function Navbar() {
             <ul className="navbar-nav">
               <li className="nav-item">
                 <Link className="nav-link active" aria-current="page" to="/" exact>Home</Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link active" aria-current="page" to="/" exact>My Patients</Link>
               </li>
               <li className="nav-item">
                 <Link className="nav-link active" to="/login">Login</Link>

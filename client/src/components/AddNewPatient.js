@@ -74,7 +74,6 @@ function AddNewPatient({ patients, setPatients }) {
                 autoFocus
                 required
               />
-              <div className="invalid-feedback">{validationErrors[0]}</div>
             </div>
             <div className="mb-3">
               <label htmlFor="inputEmailAddress" className="form-label">
@@ -107,9 +106,6 @@ function AddNewPatient({ patients, setPatients }) {
                 onChange={handleChange}
                 required
               />
-              <div className="invalid-feedback">
-                {validationErrors[2]}
-              </div>
             </div>
             <div className="mb-3">
               <label htmlFor="inputAddress" className="form-label">
@@ -126,7 +122,6 @@ function AddNewPatient({ patients, setPatients }) {
                 onChange={handleChange}
                 required
               />
-              <div className="invalid-feedback">{validationErrors[3]}</div>
             </div>
             <div className="mb-3">
               <label htmlFor="inputPhoneNumber" className="form-label">
@@ -142,9 +137,6 @@ function AddNewPatient({ patients, setPatients }) {
                 onChange={handleChange}
                 required
               />
-              <div className="invalid-feedback">
-                {validationErrors[4]}
-              </div>
             </div>
             <div className="text-center">
               <button type="submit" className="btn btn-primary">

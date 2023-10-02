@@ -70,7 +70,6 @@ function EditPatientInfo({ patients, setPatients, patient, setToggleForm, toggle
                 onChange={handleChange}
                 required
               />
-              <div className="invalid-feedback">{validationErrors.name}</div>
             </div>
             <div className="mb-3">
               <label htmlFor="inputEmailAddress" className="form-label">
@@ -86,7 +85,6 @@ function EditPatientInfo({ patients, setPatients, patient, setToggleForm, toggle
                 onChange={handleChange}
                 required
               />
-              <div className="invalid-feedback">{validationErrors.email}</div>
             </div>
             <div className="mb-3">
               <label htmlFor="inputDateOfBirth" className="form-label">
@@ -103,9 +101,6 @@ function EditPatientInfo({ patients, setPatients, patient, setToggleForm, toggle
                 onChange={handleChange}
                 required
               />
-              <div className="invalid-feedback">
-                {validationErrors.date_of_birth}
-              </div>
             </div>
             <div className="mb-3">
               <label htmlFor="inputAddress" className="form-label">
@@ -138,9 +133,6 @@ function EditPatientInfo({ patients, setPatients, patient, setToggleForm, toggle
                 onChange={handleChange}
                 required
               />
-              <div className="invalid-feedback">
-                {validationErrors.phone_number}
-              </div>
             </div>
             <div className="text-center">
               <button type="submit" className="btn btn-primary">

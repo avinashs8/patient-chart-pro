@@ -1,6 +1,6 @@
-import React, { useState, useContext } from 'react';
-import { UserContext } from '../context/User';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useContext } from 'react'
+import { UserContext } from '../context/User'
+import { useNavigate } from 'react-router-dom'
 
 function Signup() {
   const [formData, setFormData] = useState({
@@ -12,7 +12,7 @@ function Signup() {
     address: '',
     phone_number: '',
   })
-  const [validationErrors, setValidationErrors] = useState({})
+  const [validationErrors, setValidationErrors] = useState([])
   const { signup } = useContext(UserContext)
   const navigate = useNavigate()
 
@@ -52,7 +52,6 @@ function Signup() {
           <form
             className="row g-3 needs-validation was-validated"
             onSubmit={handleSubmit}
-            noValidate
           >
             <div className="col-md-6 mb-3">
               <label htmlFor="inputName" className="form-label">
@@ -69,7 +68,6 @@ function Signup() {
                 onChange={handleChange}
                 required
               />
-              <div className="invalid-feedback">{validationErrors.name}</div>
             </div>
             <div className="col-md-6 mb-3">
               <label htmlFor="inputEmailAddress" className="form-label">
@@ -85,7 +83,6 @@ function Signup() {
                 onChange={handleChange}
                 required
               />
-              <div className="invalid-feedback">{validationErrors.email}</div>
             </div>
             <div className="col-md-6 mb-3">
               <label htmlFor="inputPassword" className="form-label">
@@ -101,7 +98,6 @@ function Signup() {
                 onChange={handleChange}
                 required
               />
-              <div className="invalid-feedback">{validationErrors.password}</div>
             </div>
             <div className="col-md-6 mb-3">
               <label htmlFor="inputPasswordConfirmation" className="form-label">
@@ -117,9 +113,6 @@ function Signup() {
                 onChange={handleChange}
                 required
               />
-              <div className="invalid-feedback">
-                {validationErrors.password_confirmation}
-              </div>
             </div>
             <div className="col-md-6 mb-3">
               <label htmlFor="inputSpecialization" className="form-label">
@@ -135,9 +128,6 @@ function Signup() {
                 onChange={handleChange}
                 required
               />
-              <div className="invalid-feedback">
-                {validationErrors.specialization}
-              </div>
             </div>
             <div className="col-12 mb-3">
               <label htmlFor="inputAddress" className="form-label">
@@ -154,7 +144,6 @@ function Signup() {
                 onChange={handleChange}
                 required
               />
-              <div className="invalid-feedback">{validationErrors.address}</div>
             </div>
             <div className="col-12 mb-3">
               <label htmlFor="inputPhoneNumber" className="form-label">
@@ -168,17 +157,15 @@ function Signup() {
                 name="phone_number"
                 value={formData.phone_number}
                 onChange={handleChange}
-                required 
+                required
               />
-              <div className="invalid-feedback">
-                {validationErrors.phone_number}
-              </div>
             </div>
             <div className="col-12 d-flex justify-content-center">
               <button type="submit" className="btn btn-primary">
                 Sign Up
               </button>
             </div>
+            <ul>{validationErrors}</ul>
           </form>
         </div>
       </div>
@@ -187,4 +174,3 @@ function Signup() {
 }
 
 export default Signup
-

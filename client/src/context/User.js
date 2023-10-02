@@ -14,7 +14,9 @@ function UserProvider({ children }) {
       .then(resp => resp.json()) 
       .then(data => {
         setUser(data)
-        setloggedIn(true)
+        if(user){
+          setloggedIn(true)
+        }
       })
     }, [])
 
