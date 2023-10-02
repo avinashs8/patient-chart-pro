@@ -27,7 +27,7 @@ function PatientShowPage({ patients, setPatients }) {
       <div class="card-header">
         <ul class="nav nav-tabs card-header-tabs">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="true" href="#">Patient Profile</a>
+            <a class="nav-link active" aria-current="true" >Patient Profile</a>
           </li>
           <li class="nav-item">
             <Link class="nav-link" to={`/patients/${patient.id}/prescriptions`}>Medications</Link>
