@@ -34,7 +34,7 @@ function App() {
         <Route path='/' element={<Home />}/>
         <Route path='/patients' element={<AllPatients patients={patients} setPatients={setPatients}/>} />
         <Route path='/mypatients' element={<MyPatients patients={patients}/>} />
-        <Route path='/allpatients/:id' element={<PatientShowPage patients={patients} setPatients={setPatients}/>}/>
+        <Route path='/patients/:id' element={<PatientShowPage patients={patients} setPatients={setPatients}/>}/>
         <Route path='/patients/:id/prescriptions' element={<PatientPrescriptions patients={patients} setPatients={setPatients}/>}/>
         <Route path='/patients/:patientId/prescriptions/:id' element={<PrescriptionShowPage patients={patients} setPatients={setPatients}/>}/>
         <Route path='/addpharmacy' element={<AddPharmacy />}/>

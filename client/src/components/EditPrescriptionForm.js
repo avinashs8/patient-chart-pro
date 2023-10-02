@@ -26,13 +26,11 @@ function EditPrescriptionForm({ toggleForm, setToggleForm, patients, setPatients
     })
   }
 
-  const selectPharmacy = pharmacies.map((pharmacy) => {
-    return (
-      <option value={pharmacy.id} key={pharmacy.id}>
-        {pharmacy.name}
-      </option>
-    )
-  })
+  const selectPharmacy = pharmacies.map((pharmacy) => (
+    <option value={pharmacy.id} key={pharmacy.id}>
+      {pharmacy.name}
+    </option>
+  ))
 
   const patient = patients.find((patient) => patient.id === parseInt(formData.patient_id))
 
@@ -98,6 +96,7 @@ function EditPrescriptionForm({ toggleForm, setToggleForm, patients, setPatients
                 value={formData.medication}
                 onChange={handleChange}
                 required
+                autoFocus
               />
               <div className="invalid-feedback">{validationErrors.medication}</div>
             </div>
@@ -160,7 +159,7 @@ function EditPrescriptionForm({ toggleForm, setToggleForm, patients, setPatients
               {selectPharmacy}
             </select>
             <Link to="/addpharmacy">
-              <button>Add Pharmacy</button>
+              <button className="btn btn-primary">Add Pharmacy</button>
             </Link>
 
             <div className="col-12 d-flex justify-content-center">
@@ -176,3 +175,4 @@ function EditPrescriptionForm({ toggleForm, setToggleForm, patients, setPatients
 }
 
 export default EditPrescriptionForm
+

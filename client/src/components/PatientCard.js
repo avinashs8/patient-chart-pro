@@ -13,7 +13,7 @@ function PatientCard({ patient }) {
         </div>
         <div className="card-footer bg-transparent border-top-0">
           <NavLink
-            to={`/allpatients/${patient.id}`}
+            to={`/patients/${patient.id}`}
             className="btn btn-primary btn-block"
           >
             View Full Profile
