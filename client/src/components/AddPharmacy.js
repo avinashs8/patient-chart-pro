@@ -33,7 +33,7 @@ function AddPharmacy() {
         if (!data.errors) {
           const updatedPharmacies = [...pharmacies, data]
           setPharmacies(updatedPharmacies)
-          navigate('/allpatients')
+          navigate('/patients')
         } else{
           const errorLis = data.errors.map((e, index) => {
             return <li key={index}>{e}</li>
