@@ -67,7 +67,7 @@ function MyPatients({ patients, setPatients }) {
         </button>
       </div>
       {toggleForm ? (
-        <AddNewPatient patients={patients} setPatients={setPatients} />
+        <AddNewPatient patients={patients} setPatients={setPatients} toggleForm={toggleForm} setToggleForm={setToggleForm}/>
       ) : null}
     </div>
   )
